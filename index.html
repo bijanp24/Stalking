@@ -74,6 +74,9 @@
                     <button onclick="switchTab('criminal-consequences')" id="tab-criminal-consequences" class="py-1.5 px-1 text-slate-400 hover:text-white transition-colors">
                         3. Criminal Consequences (State Prison)
                     </button>
+                    <button onclick="switchTab('pdf-dossier')" id="tab-pdf-dossier" class="py-1.5 px-1 text-slate-400 hover:text-white transition-colors">
+                        4. Investigative Dossier (PDF)
+                    </button>
                 </nav>
             </div>
         </div>
@@ -183,7 +186,7 @@
                 <div class="flex items-center justify-between mb-4">
                     <h2 class="text-2xl font-bold text-slate-900">The Severe Criminal Consequences of Online Intimidation</h2>
                     <!-- PDF Placeholders -->
-                    <a href="#" class="inline-flex items-center gap-2 bg-slate-900 hover:bg-slate-800 text-white px-4 py-2 rounded font-medium text-sm transition-colors shadow-sm">
+                    <a href="civil-harassment-investigative-dossier.pdf" target="_blank" class="inline-flex items-center gap-2 bg-slate-900 hover:bg-slate-800 text-white px-4 py-2 rounded font-medium text-sm transition-colors shadow-sm">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
                         View Legal Brief (PDF)
                     </a>
@@ -245,6 +248,19 @@
             </div>
         </section>
 
+        <!-- SECTION 4: PDF DOSSIER VIEW -->
+        <section id="sec-pdf-dossier" class="space-y-6 hidden">
+            <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+                <h2 class="text-2xl font-bold text-slate-900 mb-4">Official Investigative Dossier</h2>
+                <p class="text-slate-700 leading-relaxed text-base mb-6">
+                    Below is the full investigative dossier detailing the civil harassment case and potential criminal liabilities. If the viewer does not load, you can <a href="civil-harassment-investigative-dossier.pdf" target="_blank" class="text-rose-600 hover:underline font-semibold">download the PDF here</a>.
+                </p>
+                <div class="w-full h-[800px] border border-slate-200 rounded-lg overflow-hidden bg-slate-50">
+                    <iframe src="civil-harassment-investigative-dossier.pdf" class="w-full h-full" frameborder="0"></iframe>
+                </div>
+            </div>
+        </section>
+
     </main>
 
     <!-- Tab Switching Script -->
@@ -257,6 +273,8 @@
             document.getElementById('sec-cyber-campaign').classList.remove('block');
             document.getElementById('sec-criminal-consequences').classList.add('hidden');
             document.getElementById('sec-criminal-consequences').classList.remove('block');
+            document.getElementById('sec-pdf-dossier').classList.add('hidden');
+            document.getElementById('sec-pdf-dossier').classList.remove('block');
 
             // Remove active state from all tabs
             document.getElementById('tab-threat-baseline').classList.remove('tab-active', 'text-slate-300');
@@ -267,6 +285,9 @@
             
             document.getElementById('tab-criminal-consequences').classList.remove('tab-active', 'text-slate-300');
             document.getElementById('tab-criminal-consequences').classList.add('text-slate-400');
+
+            document.getElementById('tab-pdf-dossier').classList.remove('tab-active', 'text-slate-300');
+            document.getElementById('tab-pdf-dossier').classList.add('text-slate-400');
 
             // Show selected section
             const section = document.getElementById('sec-' + tabName);
