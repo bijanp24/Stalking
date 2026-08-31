@@ -71,6 +71,9 @@
                     <button onclick="switchTab('cyber-campaign')" id="tab-cyber-campaign" class="py-1.5 px-1 text-slate-400 hover:text-white transition-colors">
                         2. Cyberbullying Campaign (Active Allegations)
                     </button>
+                    <button onclick="switchTab('criminal-consequences')" id="tab-criminal-consequences" class="py-1.5 px-1 text-slate-400 hover:text-white transition-colors">
+                        3. Criminal Consequences (State Prison)
+                    </button>
                 </nav>
             </div>
         </div>
@@ -173,6 +176,75 @@
             </div>
         </section>
 
+        <!-- SECTION 3: CRIMINAL CONSEQUENCES -->
+        <section id="sec-criminal-consequences" class="space-y-6 hidden">
+            
+            <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="text-2xl font-bold text-slate-900">The Severe Criminal Consequences of Online Intimidation</h2>
+                    <!-- PDF Placeholders -->
+                    <a href="#" class="inline-flex items-center gap-2 bg-slate-900 hover:bg-slate-800 text-white px-4 py-2 rounded font-medium text-sm transition-colors shadow-sm">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                        View Legal Brief (PDF)
+                    </a>
+                </div>
+                <p class="text-slate-700 leading-relaxed text-base mb-6">
+                    Under California law, online perpetrators who cross the line into targeted intimidation face catastrophic criminal liabilities. Prosecutors combine multiple statutes to construct high-stakes felony prosecutions designed to secure maximum prison exposure.
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <!-- The Felony Core & Enhancements -->
+                    <div class="bg-slate-50 border border-slate-200 rounded-lg p-5">
+                        <h3 class="text-rose-600 font-bold text-lg border-b border-slate-200 pb-2 mb-3">I. The Sentencing & Exposure Matrix</h3>
+                        
+                        <div class="mb-4">
+                            <h4 class="font-bold text-slate-900 text-sm">CPC § 422(a) (Criminal Threats)</h4>
+                            <p class="text-sm text-slate-700 mt-1">Charged as felonies due to household danger. Each distinct digital threat is a separate, consecutive count. Base exposure: <strong>3 years per count</strong>.</p>
+                        </div>
+
+                        <div>
+                            <h4 class="font-bold text-slate-900 text-sm">CPC § 422.75 ("In Concert" Hate Crime)</h4>
+                            <p class="text-sm text-slate-700 mt-1">If bias-motivated and committed collectively/willfully on forums, it triggers an automatic, consecutive <strong>4-year enhancement</strong> per count.</p>
+                        </div>
+                    </div>
+
+                    <!-- Decades of Exposure -->
+                    <div class="bg-rose-50 border border-rose-200 rounded-lg p-5 flex flex-col justify-center">
+                        <h3 class="text-rose-800 font-bold text-lg mb-2 text-center">The Multi-Count Cascade</h3>
+                        <div class="bg-white p-4 rounded border border-rose-100 text-center">
+                            <div class="text-sm text-slate-600 mb-1">3 Felony Counts + 3 Enhancements</div>
+                            <div class="text-4xl font-extrabold text-rose-600">21 Years</div>
+                            <div class="text-sm font-bold text-rose-800 mt-1">Aggregate Maximum State Prison</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Three Strikes Law -->
+                    <div class="bg-slate-900 text-white rounded-lg p-5">
+                        <h3 class="text-amber-400 font-bold text-lg border-b border-slate-700 pb-2 mb-3">II. The "Three Strikes" Law</h3>
+                        <p class="text-sm text-slate-300 mb-3">Under CPC § 1192.7(c)(38), Criminal Threats is a "Serious Felony" and a permanent "Felony Strike."</p>
+                        <ul class="space-y-2 text-sm text-slate-300 list-disc list-inside ml-2">
+                            <li><strong>Sentence Doubling:</strong> Any future felony charge is automatically doubled.</li>
+                            <li><strong>85% Minimum Serve:</strong> Strike offenders are federally mandated to serve 85% of their sentence behind bars.</li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Unmasking Reality -->
+                    <div class="bg-slate-50 border border-slate-200 rounded-lg p-5">
+                        <h3 class="text-slate-900 font-bold text-lg border-b border-slate-200 pb-2 mb-3">III. Subpoena & Unmasking Reality</h3>
+                        <p class="text-sm text-slate-700 mb-3">Anonymity is rapidly dismantled through standard judicial channels:</p>
+                        <ul class="space-y-2 text-sm text-slate-700">
+                            <li><span class="font-bold">1. Platform Subpoenas:</span> Reddit hands over email records and historical IP/MAC logs.</li>
+                            <li><span class="font-bold">2. ISP Unmasking:</span> IPs are matched by ISPs (Comcast, Spectrum) to physical household billing addresses.</li>
+                            <li><span class="font-bold">3. Warrants:</span> Digital trails secure search warrants leading directly to physical arrests.</li>
+                        </ul>
+                    </div>
+                </div>
+                
+            </div>
+        </section>
+
     </main>
 
     <!-- Tab Switching Script -->
@@ -183,6 +255,8 @@
             document.getElementById('sec-threat-baseline').classList.remove('block');
             document.getElementById('sec-cyber-campaign').classList.add('hidden');
             document.getElementById('sec-cyber-campaign').classList.remove('block');
+            document.getElementById('sec-criminal-consequences').classList.add('hidden');
+            document.getElementById('sec-criminal-consequences').classList.remove('block');
 
             // Remove active state from all tabs
             document.getElementById('tab-threat-baseline').classList.remove('tab-active', 'text-slate-300');
@@ -190,6 +264,9 @@
             
             document.getElementById('tab-cyber-campaign').classList.remove('tab-active', 'text-slate-300');
             document.getElementById('tab-cyber-campaign').classList.add('text-slate-400');
+            
+            document.getElementById('tab-criminal-consequences').classList.remove('tab-active', 'text-slate-300');
+            document.getElementById('tab-criminal-consequences').classList.add('text-slate-400');
 
             // Show selected section
             const section = document.getElementById('sec-' + tabName);
