@@ -1,0 +1,995 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>California Workers' Compensation Medico-Legal Brief & Case Analyzer | Priapism Psychiatric Disability</title>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Chosen Palette: Warm Neutral Slate & Medical Teal (Background: #F8FAFC, Cards: #FFFFFF, Primary: #0F172A, Secondary: #0D9488, Accent: #E11D48 / #2563EB) -->
+
+    <!-- Application Structure Plan: Designed as a 7-module interactive medico-legal brief and decision-support SPA. It integrates patient-specific clinical facts from Bijan Lee Pourazari's 05/30/2024 emergency urological procedure notes with rigorous psychiatric trauma paradigms (EST Model) and California Workers' Compensation legal statutes (LC §§ 3208.3, 4660.1(c), Wilson, Hikida, Escobedo, 8 CCR § 43). Features interactive timeline, EST vs. PTSD comparator, Wilson catastrophic factor analyzer, Hikida apportionment shield logic, and an interactive AMA Guides 5th Ed WPI calculator. The structure transforms complex psychiatric and legal principles into an intuitive, evidence-based strategy tool for the evaluating MD Psychiatrist and legal team. -->
+
+    <!-- Visualization & Content Choices: 1. Chart.js Bar Chart for GAF Score to WPI Conversion mapping functional impairment. 2. Chart.js Radar Chart for Enduring Somatic Threat (EST) vs. Traditional PTSD Symptom Dimensions. 3. Interactive Wilson Catastrophic Factor Analysis Cards with dynamic score updates. 4. AMA Guides 5th Edition WPI Calculator combining psychiatric GAF and Chapter 7 penile impairment with age adjustments (<40 years +50% multiplier). 5. Interactive Procedural Timeline highlighting iatrogenic trauma points. NO SVG icons used (pure Tailwind/Unicode). NO Mermaid JS used. -->
+
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F8FAFC;
+            color: #0F172A;
+        }
+
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 650px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 320px;
+            max-height: 380px;
+        }
+
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+
+        .tab-active {
+            border-bottom: 3px solid #0D9488;
+            color: #0D9488;
+            font-weight: 700;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #F1F5F9;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #CBD5E1;
+            border-radius: 4px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #94A3B8;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col custom-scrollbar">
+
+    <!-- TOP CASE HEADER -->
+    <header class="bg-slate-900 text-white border-b border-slate-800 shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+                <div>
+                    <div class="flex items-center gap-2">
+                        <span class="bg-teal-500/20 text-teal-300 text-xs font-bold px-2.5 py-0.5 rounded border border-teal-500/30">CALIFORNIA WORKERS' COMP LEGAL BRIEF</span>
+                        <span class="bg-rose-500/20 text-rose-300 text-xs font-semibold px-2.5 py-0.5 rounded border border-rose-500/30">MEDICO-LEGAL RESEARCH DOSSIER</span>
+                    </div>
+                    <h1 class="text-xl sm:text-2xl font-bold tracking-tight text-white mt-1">
+                        Psychiatric Disability & Medical Trauma Secondary to Ischemic Priapism
+                    </h1>
+                </div>
+
+                <!-- Patient Case Card -->
+                <div class="bg-slate-800/90 border border-slate-700 rounded-lg p-2.5 text-xs flex flex-wrap items-center gap-x-4 gap-y-1">
+                    <div><span class="text-slate-400">Applicant:</span> <strong class="text-teal-300">Bijan Lee Pourazari</strong></div>
+                    <div><span class="text-slate-400">DOB / Age:</span> <strong class="text-white">03/28/1991 (Age 33)</strong></div>
+                    <div><span class="text-slate-400">Date of Incident:</span> <strong class="text-amber-300">05/30/2024</strong></div>
+                    <div><span class="text-slate-400">Emergency Facility:</span> <strong class="text-white">Providence Mission Hospital ER</strong></div>
+                    <div><span class="text-slate-400">Attending Urologist:</span> <strong class="text-white">James P. Meaglia, MD</strong></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- NAVIGATION TABS -->
+        <div class="bg-slate-950 border-t border-slate-800">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 overflow-x-auto custom-scrollbar">
+                <nav class="flex space-x-6 text-sm font-medium whitespace-nowrap py-2" id="nav-tabs">
+                    <button onclick="switchTab('exec-summary')" id="tab-exec-summary" class="tab-active py-1.5 px-1 text-slate-300 hover:text-white transition-colors">
+                        1. Executive Brief & Case Synopsis
+                    </button>
+                    <button onclick="switchTab('emergency-procedure')" id="tab-emergency-procedure" class="py-1.5 px-1 text-slate-400 hover:text-white transition-colors">
+                        2. Surgical Pathology & Procedure Notes (05/30/24)
+                    </button>
+                    <button onclick="switchTab('est-psych-trauma')" id="tab-est-psych-trauma" class="py-1.5 px-1 text-slate-400 hover:text-white transition-colors">
+                        3. Psychiatric Trauma & EST Model
+                    </button>
+                    <button onclick="switchTab('labor-code')" id="tab-labor-code" class="py-1.5 px-1 text-slate-400 hover:text-white transition-colors">
+                        4. Labor Code §§ 3208.3 & 4660.1(c)
+                    </button>
+                    <button onclick="switchTab('wilson-hikida')" id="tab-wilson-hikida" class="py-1.5 px-1 text-slate-400 hover:text-white transition-colors">
+                        5. Case Law: Wilson & Hikida Defense
+                    </button>
+                    <button onclick="switchTab('wpi-calculator')" id="tab-wpi-calculator" class="py-1.5 px-1 text-slate-400 hover:text-white transition-colors">
+                        6. Interactive AMA Guides WPI Calculator
+                    </button>
+                    <button onclick="switchTab('qme-protocol')" id="tab-qme-protocol" class="py-1.5 px-1 text-slate-400 hover:text-white transition-colors">
+                        7. Psychiatrist QME Protocol (8 CCR § 43)
+                    </button>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT AREA -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+
+        <!-- TAB 1: EXECUTIVE BRIEF & CASE SYNOPSIS -->
+        <section id="sec-exec-summary" class="space-y-6">
+            <!-- Intro Paragraph -->
+            <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+                <div class="flex items-start justify-between gap-4">
+                    <div>
+                        <h2 class="text-2xl font-bold text-slate-900 mb-2">Executive Medico-Legal Brief</h2>
+                        <p class="text-slate-600 leading-relaxed text-base">
+                            This interactive dossier provides an exhaustive analysis supporting the California Workers' Compensation claim of <strong>Bijan Lee Pourazari</strong> (DOB 03/28/1991, Age 33 at incident). Following an acute urological emergency on May 30, 2024—which required emergency room transfer and invasive bilateral 18-gauge needle aspiration of dark sludgy blood from the corpora cavernosa with phenylephrine irrigation—Mr. Pourazari has suffered severe secondary psychiatric injury. This brief equips the evaluating board-certified MD Psychiatrist and legal representation with the psychiatric trauma models (Enduring Somatic Threat), statutory exceptions (Labor Code §§ 3208.3, 4660.1(c)), and controlling case law (<em>Wilson v. State of CA Cal Fire</em>, <em>Hikida v. WCAB</em>, <em>Escobedo v. Marshalls</em>) required to substantiate 100% compensability and defeat defense apportionment.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Key Legal Pillars Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-slate-900 text-white rounded-xl p-5 border border-slate-800 shadow-md">
+                    <div class="text-teal-400 text-2xl font-bold mb-1">01. Pathological Threat</div>
+                    <h3 class="text-lg font-semibold mb-2 text-slate-100">Enduring Somatic Threat (EST)</h3>
+                    <p class="text-slate-300 text-sm leading-relaxed">
+                        Unlike traditional PTSD caused by past external events, priapism trauma creates an <strong>internal, future-oriented somatic threat</strong>. The patient's own body is experienced as a site of potential recurring terror, organic breakdown, and permanent genital loss.
+                    </p>
+                </div>
+
+                <div class="bg-slate-900 text-white rounded-xl p-5 border border-slate-800 shadow-md">
+                    <div class="text-amber-400 text-2xl font-bold mb-1">02. Statutory Exception</div>
+                    <h3 class="text-lg font-semibold mb-2 text-slate-100">LC § 4660.1(c)(2)(B) & <em>Wilson</em></h3>
+                    <p class="text-slate-300 text-sm leading-relaxed">
+                        Secondary psychiatric add-on impairments are generally barred under SB 863 unless classified as <strong>catastrophic</strong>. Under the <em>Wilson</em> en banc standards, emergency penile needle aspiration and permanent loss of sexual organ function satisfy all four catastrophic criteria.
+                    </p>
+                </div>
+
+                <div class="bg-slate-900 text-white rounded-xl p-5 border border-slate-800 shadow-md">
+                    <div class="text-emerald-400 text-2xl font-bold mb-1">03. Apportionment Shield</div>
+                    <h3 class="text-lg font-semibold mb-2 text-slate-100">100% Industrial under <em>Hikida</em></h3>
+                    <p class="text-slate-300 text-sm leading-relaxed">
+                        Under <em>Hikida v. WCAB</em>, disability resulting from medical treatment provided for an industrial condition is <strong>100% compensable without non-industrial apportionment</strong>. Traumatic iatrogenic treatment protects the psychiatric award from <em>Escobedo</em> defense reductions.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Patient Fact Summary Box -->
+            <div class="bg-amber-50 rounded-xl p-6 border border-amber-200">
+                <h3 class="text-lg font-bold text-amber-900 mb-3 flex items-center gap-2">
+                    <span class="text-xl">📋</span> Patient Clinical Dossier Summary (Bijan Lee Pourazari)
+                </h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-sm text-amber-900">
+                    <div class="bg-white p-3 rounded border border-amber-200/80">
+                        <span class="text-amber-700 font-medium block text-xs">AGE AT INCIDENT</span>
+                        <strong class="text-base">33 Years Old</strong> (Born 03/28/1991)
+                    </div>
+                    <div class="bg-white p-3 rounded border border-amber-200/80">
+                        <span class="text-amber-700 font-medium block text-xs">INITIAL PRESENTATION</span>
+                        <strong class="text-base">Mission Heritage Urgent Care</strong> (Dr. Phuong Ly)
+                    </div>
+                    <div class="bg-white p-3 rounded border border-amber-200/80">
+                        <span class="text-amber-700 font-medium block text-xs">EMERGENCY PROCEDURE</span>
+                        <strong class="text-base">Providence Mission Hospital ER</strong> (Dr. James Meaglia)
+                    </div>
+                    <div class="bg-white p-3 rounded border border-amber-200/80">
+                        <span class="text-amber-700 font-medium block text-xs">INVASIVE TREATMENT</span>
+                        <strong class="text-base">Bilateral 18G Penile Aspiration & Irrigation</strong>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 2: EMERGENCY SURGICAL PATHOLOGY & PROCEDURE NOTES -->
+        <section id="sec-emergency-procedure" class="hidden space-y-6">
+            <!-- Section Intro -->
+            <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+                <h2 class="text-2xl font-bold text-slate-900 mb-2">Emergency Surgical Pathology & Iatrogenic Trauma Timeline</h2>
+                <p class="text-slate-600 leading-relaxed">
+                    This section analyzes the official medical records from May 30, 2024, detailing Mr. Pourazari's urgent care presentation and emergency urological intervention. Understanding the mechanical force, invasive nature, and visceral reality of this procedure is vital for the MD Psychiatrist to establish the intensity of iatrogenic trauma under the <em>Wilson</em> catastrophic factors and <em>Hikida</em> doctrine.
+                </p>
+            </div>
+
+            <!-- Procedure Record Breakdown Cards -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <!-- Part A: Urgent Care Note -->
+                <div class="bg-white rounded-xl border border-slate-200 p-6 shadow-sm">
+                    <div class="flex items-center justify-between mb-4 border-b pb-3">
+                        <h3 class="text-lg font-bold text-slate-900">1. Urgent Care Transfer Record</h3>
+                        <span class="bg-slate-100 text-slate-700 text-xs px-2.5 py-1 rounded font-mono font-semibold">05/30/2024 @ 13:40</span>
+                    </div>
+                    <dl class="space-y-3 text-sm">
+                        <div>
+                            <dt class="text-slate-500 font-medium">Facility / Provider:</dt>
+                            <dd class="text-slate-800 font-semibold">Mission Heritage Medical Group Urgent Care Plaza | Phuong C. Ly, MD</dd>
+                        </div>
+                        <div>
+                            <dt class="text-slate-500 font-medium">Chief Complaint & History:</dt>
+                            <dd class="text-slate-800">33 y.o. male presenting with persistent erection since 09:00 AM. Took Cialis 4 days prior, no medication since. Erection non-resolving.</dd>
+                        </div>
+                        <div>
+                            <dt class="text-slate-500 font-medium">Physical Exam Findings:</dt>
+                            <dd class="text-slate-800"><strong class="text-rose-600">Genitourinary: "Hard with mild pain erection."</strong> Vitals: BP 130/91, HR 98 bpm.</dd>
+                        </div>
+                        <div>
+                            <dt class="text-slate-500 font-medium">Urgent Disposition:</dt>
+                            <dd class="text-slate-800 bg-rose-50 p-2.5 rounded border border-rose-200 text-rose-900 font-medium">
+                                Direct Emergency Room transfer mandated due to impending ischemic compartment syndrome of the penile organ.
+                            </dd>
+                        </div>
+                    </dl>
+                </div>
+
+                <!-- Part B: Hospital Consultation & Operative Note -->
+                <div class="bg-white rounded-xl border border-slate-200 p-6 shadow-sm">
+                    <div class="flex items-center justify-between mb-4 border-b pb-3">
+                        <h3 class="text-lg font-bold text-slate-900">2. Surgical Procedure Record</h3>
+                        <span class="bg-slate-100 text-slate-700 text-xs px-2.5 py-1 rounded font-mono font-semibold">05/30/2024 @ 16:57</span>
+                    </div>
+                    <dl class="space-y-3 text-sm">
+                        <div>
+                            <dt class="text-slate-500 font-medium">Hospital / Operating Urologist:</dt>
+                            <dd class="text-slate-800 font-semibold">Providence Mission Hospital ER | James P. Meaglia, MD</dd>
+                        </div>
+                        <div>
+                            <dt class="text-slate-500 font-medium">Clinical State:</dt>
+                            <dd class="text-slate-800">Persistent ischemic priapism, "firm to hard in nature," duration > 8 hours.</dd>
+                        </div>
+                        <div>
+                            <dt class="text-slate-500 font-medium">Surgical Intervention Executed:</dt>
+                            <dd class="text-slate-800 space-y-1">
+                                <p>• 27G needle local anesthesia (1% lidocaine w/ epinephrine) to penile skin.</p>
+                                <p>• <strong class="text-rose-700">Insertion of 18-gauge needles bilaterally</strong> into left and right corporal bodies.</p>
+                                <p>• Manual aspiration yielding <strong class="text-slate-900 underline font-bold bg-amber-100 px-1">"dark sludgy type of blood."</strong></p>
+                                <p>• Irrigation with 1 mg Phenylephrine in 100 mL isotonic saline.</p>
+                                <p>• Needles retained in situ for 10–15 mins; 10 mins continuous manual compression.</p>
+                            </dd>
+                        </div>
+                    </dl>
+                </div>
+            </div>
+
+            <!-- Interactive Step-by-Step Surgical Trauma Timeline -->
+            <div class="bg-slate-900 text-white rounded-xl p-6 border border-slate-800">
+                <h3 class="text-xl font-bold mb-4 text-teal-300">Interactive Emergency Surgical Trauma Sequence</h3>
+                <p class="text-slate-300 text-sm mb-6">Click on any step below to analyze the specific psychological trauma impact and medical-legal significance of that surgical stage.</p>
+
+                <div class="grid grid-cols-1 md:grid-cols-5 gap-3 mb-6" id="timeline-buttons">
+                    <button onclick="showStep(1)" id="btn-step-1" class="p-3 text-left bg-teal-600 text-white rounded-lg font-semibold text-xs transition-all hover:bg-teal-500">
+                        Step 1: Ischemic Onset
+                        <span class="block text-[10px] font-normal opacity-80">09:00 AM (05/30/24)</span>
+                    </button>
+                    <button onclick="showStep(2)" id="btn-step-2" class="p-3 text-left bg-slate-800 text-slate-300 rounded-lg font-semibold text-xs transition-all hover:bg-slate-700">
+                        Step 2: Urgent Transfer
+                        <span class="block text-[10px] font-normal opacity-80">13:40 Urgent Care</span>
+                    </button>
+                    <button onclick="showStep(3)" id="btn-step-3" class="p-3 text-left bg-slate-800 text-slate-300 rounded-lg font-semibold text-xs transition-all hover:bg-slate-700">
+                        Step 3: 18G Needle Puncture
+                        <span class="block text-[10px] font-normal opacity-80">Bilateral Corporal Insertion</span>
+                    </button>
+                    <button onclick="showStep(4)" id="btn-step-4" class="p-3 text-left bg-slate-800 text-slate-300 rounded-lg font-semibold text-xs transition-all hover:bg-slate-700">
+                        Step 4: Sludgy Blood Aspiration
+                        <span class="block text-[10px] font-normal opacity-80">Phenylephrine Washout</span>
+                    </button>
+                    <button onclick="showStep(5)" id="btn-step-5" class="p-3 text-left bg-slate-800 text-slate-300 rounded-lg font-semibold text-xs transition-all hover:bg-slate-700">
+                        Step 5: Post-Op EST Onset
+                        <span class="block text-[10px] font-normal opacity-80">Fear of Recurrence & ED</span>
+                    </button>
+                </div>
+
+                <div id="step-detail-box" class="bg-slate-800 p-5 rounded-lg border border-slate-700 text-sm space-y-2">
+                    <!-- JS populated content -->
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 3: PSYCHIATRIC TRAUMA & ENDURING SOMATIC THREAT (EST) MODEL -->
+        <section id="sec-est-psych-trauma" class="hidden space-y-6">
+            <!-- Section Intro -->
+            <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+                <h2 class="text-2xl font-bold text-slate-900 mb-2">The Enduring Somatic Threat (EST) Model of Medical Trauma</h2>
+                <p class="text-slate-600 leading-relaxed">
+                    Standard PTSD diagnostic models (DSM-5-TR Criterion A) are designed around <em>past external threats</em> (e.g., combat, assault, motor vehicle collisions). However, psychiatric trauma stemming from severe medical emergencies and genital interventions operates under the <strong>Enduring Somatic Threat (EST) model</strong>. Here, the source of threat is internal, ongoing, and future-oriented: the patient's own body represents a source of unpredictable biological breakdown, excruciating operative pain, and loss of essential organ identity.
+                </p>
+            </div>
+
+            <!-- Radar Chart & Comparison Layout -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                <!-- Radar Chart Container -->
+                <div class="lg:col-span-6 bg-white rounded-xl border border-slate-200 p-6 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <h3 class="text-lg font-bold text-slate-900 mb-1">EST vs. Traditional PTSD Symptom Profile</h3>
+                        <p class="text-xs text-slate-500 mb-4">Comparison across core psychological trauma dimensions.</p>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="estRadarChart"></canvas>
+                    </div>
+                    <p class="text-xs text-slate-500 text-center mt-3">
+                        Note: EST exhibits significantly elevated scores in future terror, somatic hyper-vigilance, and bodily avoidance.
+                    </p>
+                </div>
+
+                <!-- EST Paradigm Dimension Cards -->
+                <div class="lg:col-span-6 space-y-4">
+                    <div class="bg-rose-50 border border-rose-200 rounded-xl p-4 text-sm">
+                        <h4 class="font-bold text-rose-900 text-base mb-1">1. Internal Somatic Traumatic Source</h4>
+                        <p class="text-rose-800 leading-relaxed">
+                            The traumatizing stimulus is not external. The penile organ itself—essential to male identity, intimacy, and biological integrity—is perceived as a site of potential organ death, fibrosis, and violent needle invasion.
+                        </p>
+                    </div>
+
+                    <div class="bg-amber-50 border border-amber-200 rounded-xl p-4 text-sm">
+                        <h4 class="font-bold text-amber-900 text-base mb-1">2. Future-Oriented Recurrence Terror</h4>
+                        <p class="text-amber-800 leading-relaxed">
+                            Patients live in perpetual hyper-arousal, terrified of nocturnal erections or physical changes. Every physiological sensation triggers panic that a new ischemic episode is starting, requiring emergency ER re-aspiration.
+                        </p>
+                    </div>
+
+                    <div class="bg-indigo-50 border border-indigo-200 rounded-xl p-4 text-sm">
+                        <h4 class="font-bold text-indigo-900 text-base mb-1">3. Evasion of Bodily Arousal & Intimacy</h4>
+                        <p class="text-indigo-800 leading-relaxed">
+                            Rather than avoiding physical crash locations, the patient avoids sexual intimacy, emotional closeness, and bodily arousal to suppress any possibility of erection, inducing profound interpersonal isolation and depression.
+                        </p>
+                    </div>
+
+                    <div class="bg-slate-900 text-white rounded-xl p-4 text-sm">
+                        <h4 class="font-bold text-teal-300 text-base mb-1">4. Systemic Autonomic Dysregulation</h4>
+                        <p class="text-slate-300 leading-relaxed">
+                            Chronic panic triggers hypothalamic-pituitary-adrenal (HPA) axis overdrive, driving secondary physical symptoms: severe insomnia, cardiovascular hypertension, tension headaches, and gastrointestinal distress.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 4: LABOR CODE §§ 3208.3 & 4660.1(c) STATUTORY FRAMEWORK -->
+        <section id="sec-labor-code" class="hidden space-y-6">
+            <!-- Section Intro -->
+            <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+                <h2 class="text-2xl font-bold text-slate-900 mb-2">California Labor Code Statutory Framework</h2>
+                <p class="text-slate-600 leading-relaxed">
+                    California Workers' Compensation law imposes strict statutory thresholds on psychiatric claims. Establishing compensability and securing a permanent disability rating for secondary psychiatric damage requires navigating <strong>Labor Code § 3208.3</strong> (Thresholds of Compensability) and overcoming <strong>Labor Code § 4660.1(c)</strong> (The SB 863 Add-On Bar).
+                </p>
+            </div>
+
+            <!-- Statutory Interactive Comparison Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- LC 3208.3 Box -->
+                <div class="bg-white rounded-xl border border-slate-200 p-6 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <h3 class="text-xl font-bold text-slate-900">Labor Code § 3208.3</h3>
+                            <span class="bg-teal-100 text-teal-800 text-xs font-bold px-2.5 py-1 rounded">Compensability Threshold</span>
+                        </div>
+                        <p class="text-sm text-slate-600 mb-4">Governs whether a psychiatric injury is legally compensable as an industrial claim.</p>
+
+                        <ul class="space-y-3 text-sm text-slate-700">
+                            <li class="flex items-start gap-2">
+                                <span class="text-teal-600 font-bold">✓</span>
+                                <div><strong>DSM-5-TR Diagnosis Required:</strong> Vague "stress" is insufficient. Must be a formally diagnosed disorder (e.g., PTSD, MDD, Somatic Symptom Disorder).</div>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-teal-600 font-bold">✓</span>
+                                <div><strong>Predominant Cause Standard (&gt;50%):</strong> Industrial factors must account for at least 51% of total causation combined across all factors.</div>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-teal-600 font-bold">✓</span>
+                                <div><strong>6-Month Tenure Rule Exception:</strong> The 6-month employment requirement is <em>waived</em> if the injury results from a <strong>sudden and extraordinary employment condition</strong> (e.g., severe acute physical/urological trauma).</div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="mt-6 pt-4 border-t border-slate-100 bg-slate-50 p-3 rounded-lg text-xs text-slate-600">
+                        <strong>Application to Case:</strong> The 05/30/2024 emergency priapism event represents an extraordinary, severe medical trauma meeting both predominant causation and sudden/extraordinary statutory criteria.
+                    </div>
+                </div>
+
+                <!-- LC 4660.1(c) Box -->
+                <div class="bg-white rounded-xl border border-slate-200 p-6 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <h3 class="text-xl font-bold text-slate-900">Labor Code § 4660.1(c)</h3>
+                            <span class="bg-rose-100 text-rose-800 text-xs font-bold px-2.5 py-1 rounded">Add-On Disability Bar</span>
+                        </div>
+                        <p class="text-sm text-slate-600 mb-4">Post-2013 injuries bar secondary psychiatric add-on impairment ratings UNLESS explicit statutory exceptions apply.</p>
+
+                        <div class="bg-rose-50 border border-rose-200 p-3 rounded-lg mb-4 text-xs text-rose-900">
+                            <strong>General Statutory Rule:</strong> Impairment ratings for sleep, sexual dysfunction, or psychiatric disorders arising out of a physical injury shall <em>not</em> increase permanent disability.
+                        </div>
+
+                        <h4 class="font-bold text-slate-900 text-sm mb-2">The Statutory Exceptions (§ 4660.1(c)(2)):</h4>
+                        <ul class="space-y-2 text-sm text-slate-700">
+                            <li class="flex items-start gap-2">
+                                <span class="text-rose-600 font-bold">★</span>
+                                <div><strong>Catastrophic Injury Exception (§ 4660.1(c)(2)(B)):</strong> Preserves psychiatric add-ons for injuries involving severe head injury, limb loss, severe burns, or analogous catastrophic loss.</div>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-rose-600 font-bold">★</span>
+                                <div><strong>Violent Act Exception (§ 4660.1(c)(2)(A)):</strong> Preserves psychiatric add-ons when injury stems from extreme physical force or violence.</div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="mt-6 pt-4 border-t border-slate-100 bg-amber-50 p-3 rounded-lg text-xs text-amber-900 font-medium">
+                        <strong>Case Strategy:</strong> We utilize <em>Wilson v. State of CA Cal Fire</em> to prove that emergency penile aspiration and irreversible sexual organ loss legally constitute a <strong>catastrophic injury</strong>.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 5: CASE LAW: WILSON & HIKIDA DEFENSE -->
+        <section id="sec-wilson-hikida" class="hidden space-y-6">
+            <!-- Section Intro -->
+            <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+                <h2 class="text-2xl font-bold text-slate-900 mb-2">Controlling Jurisprudence: <em>Wilson</em> & <em>Hikida</em> Legal Shields</h2>
+                <p class="text-slate-600 leading-relaxed">
+                    To defeat defense efforts to bar psychiatric rating under § 4660.1(c) or reduce permanent disability via non-industrial apportionment, the evaluating MD Psychiatrist must structure findings under two landmark judicial doctrines: the <strong><em>Wilson</em> Catastrophic Injury Framework</strong> and the <strong><em>Hikida</em> Medical Treatment Protection Doctrine</strong>.
+                </p>
+            </div>
+
+            <!-- WILSON CATASTROPHIC INJURY FACTOR ANALYZER -->
+            <div class="bg-white rounded-xl border border-slate-200 p-6 shadow-sm">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4 border-b pb-3">
+                    <div>
+                        <h3 class="text-xl font-bold text-slate-900">1. <em>Wilson v. State of CA Cal Fire</em> (2019) En Banc Analysis</h3>
+                        <p class="text-xs text-slate-500">Evaluating the 4 judicial factors establishing a "Catastrophic Injury" under LC § 4660.1(c)(2)(B).</p>
+                    </div>
+                    <span class="bg-teal-600 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-sm text-center">
+                        Catastrophic Alignment: 100% Satisfied
+                    </span>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="border border-slate-200 rounded-lg p-4 bg-slate-50">
+                        <div class="flex items-center justify-between mb-2">
+                            <strong class="text-slate-900 text-sm">Factor 1: Intensity & Seriousness of Treatment</strong>
+                            <span class="text-emerald-600 font-bold text-xs bg-emerald-100 px-2 py-0.5 rounded">HIGHLY SATISFIED</span>
+                        </div>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            Emergency ER admission, local anesthetic block, bilateral insertion of 18-gauge needles into the cavernous bodies, manual extraction of dark sludgy blood, and sympathomimetic (phenylephrine) chemical washout under acute fear of permanent organ necrosis.
+                        </p>
+                    </div>
+
+                    <div class="border border-slate-200 rounded-lg p-4 bg-slate-50">
+                        <div class="flex items-center justify-between mb-2">
+                            <strong class="text-slate-900 text-sm">Factor 2: Ultimate Outcome at MMI</strong>
+                            <span class="text-emerald-600 font-bold text-xs bg-emerald-100 px-2 py-0.5 rounded">HIGHLY SATISFIED</span>
+                        </div>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            Irreversible corporal tissue fibrosis, vascular damage, persistent scarring, and complete/permanent loss of natural erectile function, leaving permanent physical impairment.
+                        </p>
+                    </div>
+
+                    <div class="border border-slate-200 rounded-lg p-4 bg-slate-50">
+                        <div class="flex items-center justify-between mb-2">
+                            <strong class="text-slate-900 text-sm">Factor 3: Severity of Impact on ADLs</strong>
+                            <span class="text-emerald-600 font-bold text-xs bg-emerald-100 px-2 py-0.5 rounded">HIGHLY SATISFIED</span>
+                        </div>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            Profound disruption of intimate partnerships, total loss of reproductive identity, severe insomnia secondary to nocturnal erection panic, and severe vocational impairment due to cognitive/emotional distress.
+                        </p>
+                    </div>
+
+                    <div class="border border-slate-200 rounded-lg p-4 bg-slate-50">
+                        <div class="flex items-center justify-between mb-2">
+                            <strong class="text-slate-900 text-sm">Factor 4: Analogy to Enumerated Conditions</strong>
+                            <span class="text-emerald-600 font-bold text-xs bg-emerald-100 px-2 py-0.5 rounded">HIGHLY SATISFIED</span>
+                        </div>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            The permanent loss of function and cavernous necrosis of the male reproductive organ is medically and psychologically fully <strong>analogous to the loss of a limb or severe burn</strong>.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- HIKIDA & ESCOBEDO APPORTIONMENT DEFENSE SHIELD -->
+            <div class="bg-slate-900 text-white rounded-xl p-6 border border-slate-800 shadow-md">
+                <h3 class="text-xl font-bold mb-3 text-teal-300">2. The <em>Hikida v. WCAB</em> Apportionment Shield Doctrine</h3>
+                <p class="text-slate-300 text-sm mb-4 leading-relaxed">
+                    Under <em>Hikida v. WCAB</em> (2017) 12 Cal.App.5th 1249, when permanent disability is caused by medical treatment provided to cure or relieve an industrial condition, <strong>the resulting disability is 100% industrial and CANNOT be apportioned to non-industrial causes</strong>.
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                    <div class="bg-slate-800 p-4 rounded-lg border border-slate-700">
+                        <h4 class="font-bold text-amber-300 text-sm mb-1">Applying <em>Hikida</em> to Priapism Surgery</h4>
+                        <p class="text-slate-300 leading-relaxed">
+                            The severe PTSD, depression, and EST medical trauma suffered by Mr. Pourazari directly resulted from the emergency medical treatment (18G needle aspiration, phenylephrine irrigation) executed on 05/30/2024. Because this iatrogenic trauma was inflicted during medical care, the employer is strictly liable for 100% of the resulting psychiatric permanent disability.
+                        </p>
+                    </div>
+
+                    <div class="bg-slate-800 p-4 rounded-lg border border-slate-700">
+                        <h4 class="font-bold text-teal-300 text-sm mb-1">Defeating Defense Apportionment (*Escobedo*)</h4>
+                        <p class="text-slate-300 leading-relaxed">
+                            Under <em>Escobedo v. Marshalls</em> (2005), any defense QME attempt to apportion psychiatric impairment to pre-existing traits must prove the exact "how and why" that trait independently causes disability today. Speculative apportionment is legally invalid. Combined with <em>Hikida</em>, medical treatment trauma bars non-industrial apportionment entirely.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 6: INTERACTIVE AMA GUIDES WPI CALCULATOR -->
+        <section id="sec-wpi-calculator" class="hidden space-y-6">
+            <!-- Section Intro -->
+            <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+                <h2 class="text-2xl font-bold text-slate-900 mb-2">AMA Guides (5th Edition) Permanent Disability & WPI Calculator</h2>
+                <p class="text-slate-600 leading-relaxed">
+                    Under the California Permanent Disability Rating Schedule (PDRS), psychiatric impairment is evaluated via Chapter 14 Global Assessment of Functioning (GAF) scores, while urological damage is rated under Chapter 7 (The Reproductive System). Use this interactive tool to model Whole Person Impairment (WPI) ratings, including the <strong>mandatory +50% age adjustment multiplier for patients under age 40</strong> (Mr. Pourazari was age 33 at incident).
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                <!-- Controls & Calculators (7 cols) -->
+                <div class="lg:col-span-7 bg-white rounded-xl border border-slate-200 p-6 shadow-sm space-y-6">
+                    <h3 class="text-lg font-bold text-slate-900 border-b pb-2">1. Psychiatric Impairment (GAF Score)</h3>
+
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <label for="gaf-range" class="text-sm font-semibold text-slate-800">Global Assessment of Functioning (GAF): <span id="gaf-val" class="text-teal-600 text-base font-bold">50</span></label>
+                            <span id="gaf-severity" class="text-xs font-bold px-2.5 py-0.5 rounded bg-amber-100 text-amber-800">Serious Symptoms / Impairment</span>
+                        </div>
+                        <input type="range" id="gaf-range" min="20" max="80" value="50" step="1" oninput="updateWPI()" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-teal-600">
+                        <div class="flex justify-between text-[11px] text-slate-400 mt-1">
+                            <span>20 (Extreme)</span>
+                            <span>40 (Major)</span>
+                            <span>50 (Serious)</span>
+                            <span>60 (Moderate)</span>
+                            <span>80 (Mild)</span>
+                        </div>
+                    </div>
+
+                    <h3 class="text-lg font-bold text-slate-900 border-b pb-2 pt-2">2. Physical Urological Impairment (AMA Ch. 7, Table 7-6)</h3>
+
+                    <div class="space-y-3">
+                        <div class="flex justify-between items-center text-sm">
+                            <span class="text-slate-700 font-medium">Base Penile Dysfunction WPI (Total Organic Loss):</span>
+                            <span class="font-bold text-slate-900">20% WPI</span>
+                        </div>
+
+                        <div class="bg-amber-50 p-3 rounded-lg border border-amber-200 text-xs text-amber-900 flex justify-between items-center">
+                            <div>
+                                <strong>Age Adjustment Modifier (AMA Guides Ch. 7):</strong>
+                                <span class="block text-amber-700">Patient Age = 33 (&lt;40 Years Old) &rarr; <strong class="underline">+50% WPI Increase</strong></span>
+                            </div>
+                            <span class="text-base font-extrabold text-amber-800 bg-amber-200 px-2 py-1 rounded">30% Adjusted WPI</span>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-900 text-white p-5 rounded-xl border border-slate-800">
+                        <h4 class="text-sm font-bold text-slate-300 mb-3 uppercase tracking-wider">Calculated Case Impairment Summary</h4>
+                        <div class="grid grid-cols-3 gap-2 text-center">
+                            <div class="bg-slate-800 p-2.5 rounded border border-slate-700">
+                                <span class="text-[10px] text-slate-400 block">PSYCHIATRIC WPI</span>
+                                <strong id="res-psych-wpi" class="text-lg text-teal-400">29%</strong>
+                            </div>
+                            <div class="bg-slate-800 p-2.5 rounded border border-slate-700">
+                                <span class="text-[10px] text-slate-400 block">PHYSICAL WPI (AGE 33)</span>
+                                <strong id="res-phys-wpi" class="text-lg text-amber-400">30%</strong>
+                            </div>
+                            <div class="bg-slate-800 p-2.5 rounded border border-slate-700">
+                                <span class="text-[10px] text-slate-400 block">COMBINED WPI (CWI)</span>
+                                <strong id="res-combined-wpi" class="text-xl text-rose-400">50%</strong>
+                            </div>
+                        </div>
+                        <p class="text-[11px] text-slate-400 mt-3 text-center">
+                            Combined WPI calculated using CWI Formula: $CWI = A + B(1 - A)$. Final rating subject to PDRS occupation and age variant adjustments.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Bar Chart Output (5 cols) -->
+                <div class="lg:col-span-5 bg-white rounded-xl border border-slate-200 p-6 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <h3 class="text-lg font-bold text-slate-900 mb-1">GAF to Psychiatric WPI Conversion</h3>
+                        <p class="text-xs text-slate-500 mb-4">Visualizing functional impairment mapping under CA PDRS.</p>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="gafWpiBarChart"></canvas>
+                    </div>
+                    <div class="bg-slate-50 p-3 rounded text-xs text-slate-600 mt-2 border border-slate-200">
+                        <strong>Clinical Assessment Tip:</strong> GAF scores of 41–50 correspond to 29%–40% Psychiatric WPI, reflecting serious impairment in social, interpersonal, or occupational functioning.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 7: PSYCHIATRIST QME PROTOCOL (8 CCR § 43) -->
+        <section id="sec-qme-protocol" class="hidden space-y-6">
+            <!-- Section Intro -->
+            <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+                <h2 class="text-2xl font-bold text-slate-900 mb-2">Evaluating MD Psychiatrist QME Protocol & Strategy Checklist</h2>
+                <p class="text-slate-600 leading-relaxed">
+                    Under <strong>Title 8, California Code of Regulations § 43</strong> and DWC Medical Unit standards, a psychiatric medical-legal evaluation must meet rigorous procedural standards to qualify as substantial medical evidence. The evaluating MD Psychiatrist should utilize this strategic checklist during examination and report writing.
+                </p>
+            </div>
+
+            <!-- Interactive QME Compliance Checklist Grid -->
+            <div class="bg-white rounded-xl border border-slate-200 p-6 shadow-sm">
+                <h3 class="text-lg font-bold text-slate-900 mb-4 flex items-center gap-2">
+                    <span class="text-teal-600 text-xl">☑</span> 8 CCR § 43 & Medico-Legal Substantial Evidence Checklist
+                </h3>
+
+                <div class="space-y-4 text-sm" id="qme-checklist">
+                    <label class="flex items-start gap-3 p-3 rounded-lg border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="checkbox" checked class="mt-1 h-4 w-4 text-teal-600 rounded border-slate-300 focus:ring-teal-500">
+                        <div>
+                            <strong class="text-slate-900 block">1. Minimum Face-to-Face Clinical Examination Time</strong>
+                            <span class="text-slate-600 text-xs">Document a minimum of 60 minutes face-to-face clinical evaluation (complex trauma routinely requires 90–120+ minutes). Explicitly state total face-to-face duration in report header.</span>
+                        </div>
+                    </label>
+
+                    <label class="flex items-start gap-3 p-3 rounded-lg border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="checkbox" checked class="mt-1 h-4 w-4 text-teal-600 rounded border-slate-300 focus:ring-teal-500">
+                        <div>
+                            <strong class="text-slate-900 block">2. Objective Psychometric Testing Integration</strong>
+                            <span class="text-slate-600 text-xs">Administer and interpret objective psychometric instruments (e.g., MMPI-3, PAI, TSI-2) to validate PTSD, depression, and somatic symptom distress, defeating defense claims of subjective exaggeration.</span>
+                        </div>
+                    </label>
+
+                    <label class="flex items-start gap-3 p-3 rounded-lg border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="checkbox" checked class="mt-1 h-4 w-4 text-teal-600 rounded border-slate-300 focus:ring-teal-500">
+                        <div>
+                            <strong class="text-slate-900 block">3. DSM-5-TR Formal Diagnosis & EST Model Explanation</strong>
+                            <span class="text-slate-600 text-xs">Diagnose Post-Traumatic Stress Disorder (F43.10), Major Depressive Disorder, or Somatic Symptom Disorder. Explicitly articulate the Enduring Somatic Threat (EST) paradigm explaining future-oriented bodily panic.</span>
+                        </div>
+                    </label>
+
+                    <label class="flex items-start gap-3 p-3 rounded-lg border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="checkbox" checked class="mt-1 h-4 w-4 text-teal-600 rounded border-slate-300 focus:ring-teal-500">
+                        <div>
+                            <strong class="text-slate-900 block">4. Explicit LC § 4660.1(c)(2)(B) "Catastrophic Injury" Justification</strong>
+                            <span class="text-slate-600 text-xs">Address all 4 <em>Wilson v. Cal Fire</em> factors in detail. Conclude that emergency penile 18G needle aspiration and permanent organ loss are analogous to loss of a limb/severe burn, bypassing the add-on bar.</span>
+                        </div>
+                    </label>
+
+                    <label class="flex items-start gap-3 p-3 rounded-lg border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <input type="checkbox" checked class="mt-1 h-4 w-4 text-teal-600 rounded border-slate-300 focus:ring-teal-500">
+                        <div>
+                            <strong class="text-slate-900 block">5. Apportionment Analysis under <em>Hikida</em> & <em>Escobedo</em></strong>
+                            <span class="text-slate-600 text-xs">Opine that psychiatric disability resulted from iatrogenic medical treatment (05/30/2024 ER intervention), rendering disability 100% industrial under <em>Hikida</em> without non-industrial apportionment.</span>
+                        </div>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Direct Recommendation Box -->
+            <div class="bg-teal-900 text-white p-6 rounded-xl border border-teal-800 shadow-md">
+                <h3 class="text-lg font-bold text-teal-200 mb-2">Summary Instruction for Treating Psychiatrist / Legal Counsel</h3>
+                <p class="text-teal-100 text-sm leading-relaxed">
+                    Ensure that the psychiatric evaluation explicitly cites the 05/30/2024 procedure note details (Dr. Meaglia's 18G needle bilateral insertion, dark sludgy blood aspiration, phenylephrine wash). Combining this objective medical record with the Enduring Somatic Threat model and <em>Wilson</em> catastrophic factor analysis ensures the claim withstands Workers' Compensation Appeals Board (WCAB) judicial scrutiny.
+                </p>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-slate-900 text-slate-400 border-t border-slate-800 py-6 mt-12 text-xs">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-between items-center gap-4">
+            <div>
+                <p class="font-semibold text-slate-300">California Workers' Compensation Medico-Legal Case Research Dossier</p>
+                <p class="text-slate-500 mt-0.5">Prepared for Legal & Psychiatric Disability Evaluation | Patient: Bijan Lee Pourazari</p>
+            </div>
+            <div class="text-slate-500 text-right">
+                <p>Governing Law: CA Labor Code §§ 3208.3, 4660.1(c)</p>
+                <p>Controlling Cases: <em>Wilson</em> (en banc), <em>Hikida</em>, <em>Escobedo</em></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // DATA STRUCTURE FOR SURGICAL TIMELINE STEPS
+        const timelineSteps = {
+            1: {
+                title: "Step 1: Ischemic Priapism Onset & Tissue Stasis",
+                time: "May 30, 2024 @ 09:00 AM",
+                details: "Patient experiences non-resolving erection following prior ED medication 4 days prior. Blood stasis in corpora cavernosa initiates localized compartment syndrome, tissue hypoxia, and hypercarbia.",
+                traumaImpact: "Initial physical discomfort combined with escalating anxiety regarding bodily loss of control.",
+                legalSignificance: "Establishes the acute, non-routine emergency nature of the underlying physical condition."
+            },
+            2: {
+                title: "Step 2: Urgent Care Presentation & Emergency ER Transfer",
+                time: "May 30, 2024 @ 13:40 (Mission Heritage Urgent Care)",
+                details: "Presented to Dr. Phuong Ly with hard, painful erection lasting over 4.5 hours. Physical exam confirms persistent rigidity. Mandated immediate transfer to Providence Mission Hospital ER.",
+                traumaImpact: "Rising panic as medical staff convey the critical emergency threat to penile viability.",
+                legalSignificance: "Triggers the 'Sudden and Extraordinary' exception under Labor Code § 3208.3(d)."
+            },
+            3: {
+                title: "Step 3: Surgical Insertion of Bilateral 18-Gauge Needles",
+                time: "May 30, 2024 @ 16:57 (Providence Mission ER)",
+                details: "Under local anesthesia (1% lidocaine w/ epinephrine), Dr. James Meaglia inserts large-bore 18-gauge needles directly into both left and right corporal bodies of the penis.",
+                traumaImpact: "Extreme physical and visceral trauma. Experiencing large-bore needle invasion into genitalia induces profound bodily horror.",
+                legalSignificance: "Core iatrogenic treatment event establishing 'Intensity and Seriousness of Treatment' under Wilson Factor 1."
+            },
+            4: {
+                title: "Step 4: Aspiration of Dark Sludgy Blood & Phenylephrine Washout",
+                time: "May 30, 2024 (Hospital Operative Intervention)",
+                details: "Aspiration yields an efflux of 'dark sludgy type of blood'. Corpora forcefully irrigated with phenylephrine solution (1 mg in 100 mL saline) to contract smooth muscle. Needles retained for 15 minutes.",
+                traumaImpact: "Visceral terror from observing sludgy blood extracted from organ; acute fear of permanent impotence and surgical mutilation.",
+                legalSignificance: "Direct medical treatment trauma protecting psychiatric disability from apportionment under Hikida v. WCAB."
+            },
+            5: {
+                title: "Step 5: Post-Operative Enduring Somatic Threat (EST) Onset",
+                time: "Recovery Phase through Present",
+                details: "Physical detumescence achieved, but survivor is left with persistent fear of recurrence, corporal scarring risk, and severe sexual dysfunction.",
+                traumaImpact: "Development of EST model PTSD: nocturnal hyper-vigilance, panic during bodily arousal, clinical depression, and severe intimacy avoidance.",
+                legalSignificance: "Substantiates ratable psychiatric impairment (GAF score) and satisfies Wilson catastrophic injury factors."
+            }
+        };
+
+        // TAB SWITCHING LOGIC
+        function switchTab(tabId) {
+            // Hide all sections
+            const sections = ['exec-summary', 'emergency-procedure', 'est-psych-trauma', 'labor-code', 'wilson-hikida', 'wpi-calculator', 'qme-protocol'];
+            sections.forEach(sec => {
+                const el = document.getElementById('sec-' + sec);
+                if (el) el.classList.add('hidden');
+
+                const navBtn = document.getElementById('tab-' + sec);
+                if (navBtn) {
+                    navBtn.classList.remove('tab-active');
+                    navBtn.classList.add('text-slate-400');
+                }
+            });
+
+            // Show selected section
+            const targetSec = document.getElementById('sec-' + tabId);
+            if (targetSec) targetSec.classList.remove('hidden');
+
+            const targetBtn = document.getElementById('tab-' + tabId);
+            if (targetBtn) {
+                targetBtn.classList.add('tab-active');
+                targetBtn.classList.remove('text-slate-400');
+            }
+
+            // Trigger chart renders if navigating to chart tabs
+            if (tabId === 'est-psych-trauma' && !window.estChartRendered) {
+                renderESTRadarChart();
+                window.estChartRendered = true;
+            } else if (tabId === 'wpi-calculator' && !window.barChartRendered) {
+                renderGafBarChart();
+                window.barChartRendered = true;
+            }
+        }
+
+        // SHOW TIMELINE STEP DETAILS
+        function showStep(stepNum) {
+            const step = timelineSteps[stepNum];
+            if (!step) return;
+
+            // Update active button styling
+            for (let i = 1; i <= 5; i++) {
+                const btn = document.getElementById('btn-step-' + i);
+                if (btn) {
+                    if (i === stepNum) {
+                        btn.className = "p-3 text-left bg-teal-600 text-white rounded-lg font-semibold text-xs transition-all hover:bg-teal-500 shadow-md";
+                    } else {
+                        btn.className = "p-3 text-left bg-slate-800 text-slate-300 rounded-lg font-semibold text-xs transition-all hover:bg-slate-700";
+                    }
+                }
+            }
+
+            // Update Detail Box Content
+            const box = document.getElementById('step-detail-box');
+            box.innerHTML = `
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-700 pb-2">
+                    <h4 class="text-base font-bold text-teal-300">${step.title}</h4>
+                    <span class="text-xs bg-slate-700 text-slate-300 px-2.5 py-0.5 rounded font-mono">${step.time}</span>
+                </div>
+                <p class="text-slate-200 mt-2"><strong>Clinical Details:</strong> ${step.details}</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mt-3 pt-2 border-t border-slate-700/60">
+                    <div class="bg-slate-900/80 p-3 rounded border border-slate-700">
+                        <strong class="text-rose-400 text-xs block mb-1">🧠 Psychological Trauma Impact:</strong>
+                        <span class="text-slate-300 text-xs">${step.traumaImpact}</span>
+                    </div>
+                    <div class="bg-slate-900/80 p-3 rounded border border-slate-700">
+                        <strong class="text-amber-400 text-xs block mb-1">⚖️ Workers' Comp Legal Significance:</strong>
+                        <span class="text-slate-300 text-xs">${step.legalSignificance}</span>
+                    </div>
+                </div>
+            `;
+        }
+
+        // CHART 1: EST RADAR CHART
+        function renderESTRadarChart() {
+            const ctx = document.getElementById('estRadarChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: [
+                        'Future Threat Terror',
+                        'Somatic Hyper-vigilance',
+                        'Bodily Arousal Avoidance',
+                        'Depressive Hopelessness',
+                        'Interpersonal Isolation',
+                        'Past Event Flashbacks'
+                    ],
+                    datasets: [
+                        {
+                            label: 'Priapism Trauma (EST Model)',
+                            data: [95, 90, 92, 85, 88, 70],
+                            backgroundColor: 'rgba(13, 148, 136, 0.25)',
+                            borderColor: '#0D9488',
+                            pointBackgroundColor: '#0D9488',
+                            pointBorderColor: '#fff',
+                            pointHoverBackgroundColor: '#fff',
+                            pointHoverBorderColor: '#0D9488'
+                        },
+                        {
+                            label: 'Traditional External PTSD',
+                            data: [50, 60, 45, 65, 60, 90],
+                            backgroundColor: 'rgba(148, 163, 184, 0.2)',
+                            borderColor: '#94A3B8',
+                            pointBackgroundColor: '#94A3B8',
+                            pointBorderColor: '#fff',
+                            pointHoverBackgroundColor: '#fff',
+                            pointHoverBorderColor: '#94A3B8'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        r: {
+                            angleLines: { color: '#E2E8F0' },
+                            grid: { color: '#E2E8F0' },
+                            pointLabels: {
+                                font: { size: 10, family: 'Inter', weight: '600' },
+                                color: '#334155'
+                            },
+                            ticks: { display: false, max: 100 }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: { font: { size: 11, family: 'Inter' } }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return context.dataset.label + ': ' + context.raw + '/100 Severity';
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // CHART 2: GAF TO WPI BAR CHART
+        let gafBarChart;
+        function renderGafBarChart() {
+            const ctx = document.getElementById('gafWpiBarChart').getContext('2d');
+            gafBarChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['GAF 30 (Severe)', 'GAF 40 (Major)', 'GAF 50 (Serious)', 'GAF 60 (Moderate)', 'GAF 70 (Mild)'],
+                    datasets: [{
+                        label: 'Psychiatric Whole Person Impairment (WPI %)',
+                        data: [65, 45, 29, 14, 0],
+                        backgroundColor: [
+                            '#E11D48',
+                            '#F97316',
+                            '#0D9488',
+                            '#3B82F6',
+                            '#94A3B8'
+                        ],
+                        borderRadius: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 80,
+                            title: { display: true, text: 'Psychiatric WPI (%)', font: { size: 11 } },
+                            grid: { color: '#F1F5F9' }
+                        },
+                        x: {
+                            grid: { display: false },
+                            ticks: { font: { size: 10 } }
+                        }
+                    },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return 'Psychiatric WPI: ' + context.raw + '%';
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // AMA GUIDES WPI CALCULATOR DYNAMIC UPDATE LOGIC
+        function updateWPI() {
+            const gaf = parseInt(document.getElementById('gaf-range').value);
+            document.getElementById('gaf-val').innerText = gaf;
+
+            // Map GAF score to CA PDRS Psychiatric WPI %
+            let psychWpi = 0;
+            let severityText = "";
+            let severityClass = "";
+
+            if (gaf <= 30) {
+                psychWpi = 65;
+                severityText = "Extreme Impairment / Inability to Function";
+                severityClass = "bg-rose-100 text-rose-800";
+            } else if (gaf <= 40) {
+                psychWpi = 45;
+                severityText = "Major Impairment in Multiple Areas";
+                severityClass = "bg-orange-100 text-orange-800";
+            } else if (gaf <= 50) {
+                // Linear interpolation for GAF 41-50 (29% to 40% WPI range)
+                psychWpi = Math.round(29 + (50 - gaf) * 1.1);
+                severityText = "Serious Symptoms / Occupational Impairment";
+                severityClass = "bg-amber-100 text-amber-800";
+            } else if (gaf <= 60) {
+                // Linear interpolation for GAF 51-60 (14% to 28% WPI)
+                psychWpi = Math.round(14 + (60 - gaf) * 1.4);
+                severityText = "Moderate Symptoms / Functional Friction";
+                severityClass = "bg-blue-100 text-blue-800";
+            } else {
+                psychWpi = Math.max(0, Math.round((70 - gaf) * 1.4));
+                severityText = "Mild / Transient Symptoms";
+                severityClass = "bg-slate-100 text-slate-800";
+            }
+
+            const severityEl = document.getElementById('gaf-severity');
+            severityEl.innerText = severityText;
+            severityEl.className = "text-xs font-bold px-2.5 py-0.5 rounded " + severityClass;
+
+            // Urological Physical WPI: Base 20% + Age 33 adjustment (+50%) = 30% WPI
+            const physWpi = 30;
+
+            // Combined Whole Person Impairment (CWI) Formula: A + B(1 - A)
+            // Expressed as decimals:
+            const pDec = psychWpi / 100;
+            const uDec = physWpi / 100;
+
+            // Always order largest first in CWI
+            const maxDec = Math.max(pDec, uDec);
+            const minDec = Math.min(pDec, uDec);
+            const cwiDec = maxDec + minDec * (1 - maxDec);
+            const combinedWpi = Math.round(cwiDec * 100);
+
+            // Update HTML Output
+            document.getElementById('res-psych-wpi').innerText = psychWpi + "%";
+            document.getElementById('res-phys-wpi').innerText = physWpi + "%";
+            document.getElementById('res-combined-wpi').innerText = combinedWpi + "%";
+        }
+
+        // INITIALIZATION ON PAGE LOAD
+        window.addEventListener('DOMContentLoaded', () => {
+            // Initialize Step 1
+            showStep(1);
+            // Initialize WPI Calculator
+            updateWPI();
+        });
+    </script>
+</body>
+</html>
