@@ -5,6 +5,7 @@ on:
     branches:
       - main
       - master
+      - copilot/revert-last-commit
   workflow_dispatch:
 
 permissions:
